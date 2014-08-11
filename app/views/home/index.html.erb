@@ -1,0 +1,26 @@
+<p class="info" style="color:green"></p>
+
+<% unless session[:username] %>
+  <%= form_tag({action: "set_username"}) do %>
+    <%= text_field_tag(:username) %>
+    <%= submit_tag "Enter" %>
+  <% end %>
+<% else %>
+  <h2>Welcome, <%= session[:username] %></h2>
+
+  <%= link_to "Logout", home_logout_path, style: "float:right" %>
+
+  <form id="chat-form">
+    <input id="chat-input" type="text">
+  </form>
+
+  <hr>
+
+  <p class="all-chats">
+    <% @chats.each do |chat| %>
+      <%= chat.username %> => <%= chat.message %><br><br>
+    <% end %>
+  </p>
+
+<% end %>
+
